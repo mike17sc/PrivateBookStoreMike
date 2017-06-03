@@ -1,13 +1,16 @@
 package com.training.model;
 
+import javax.persistence.*;
+
 /**
  * Created by Mschneider on 03-06-17.
  */
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
-    private Long id ;
-
-
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String username;
     private String password;
     private String name;
@@ -29,6 +32,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getUsername() {
         return username;
     }
