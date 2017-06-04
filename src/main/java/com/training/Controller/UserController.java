@@ -31,7 +31,7 @@ public class UserController {
             return new ResponseEntity(user,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/customers")
+    @PostMapping(value = "/user")
     public ResponseEntity createCustomer(@RequestBody User user) {
 
         userServiceImpl.create(user);
@@ -39,7 +39,7 @@ public class UserController {
         return new ResponseEntity(user, HttpStatus.OK);
     }
 
-    @DeleteMapping("/customers/delete/{id}")
+    @DeleteMapping("/user/delete/{id}")
     public ResponseEntity deleteCustomer(@PathVariable Long id) {
 
         if (!userServiceImpl.delete(id)) {
@@ -50,7 +50,7 @@ public class UserController {
 
     }
 
-    @PutMapping("/customers/update/{id}")
+    @PutMapping("/user/update/{id}")
     public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody User user) {
 
         user = userServiceImpl.update(user);

@@ -3,12 +3,14 @@ package com.training.service;
 import com.training.dao.PagesRepository;
 import com.training.model.Pages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
 /**
  * Created by Mschneider on 04-06-17.
  */
+@Component
 public class PagesServiceImpl implements PagesService {
     @Autowired
     private PagesRepository pagesRepository;

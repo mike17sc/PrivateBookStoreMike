@@ -50,7 +50,7 @@ public class BookRestController {
 
     }
 
-    @PutMapping("/customers/update/{id}")
+    @PutMapping("/book/update/{id}")
     public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Book book) {
 
         book = bookServiceImpl.update(book);

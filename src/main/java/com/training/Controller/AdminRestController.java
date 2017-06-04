@@ -31,7 +31,7 @@ public class AdminRestController {
             return new ResponseEntity(admin,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/customers")
+    @PostMapping(value = "/admin")
     public ResponseEntity createCustomer(@RequestBody Admin admin) {
 
         adminServiceImpl.create(admin);
@@ -39,7 +39,7 @@ public class AdminRestController {
         return new ResponseEntity(admin, HttpStatus.OK);
     }
 
-    @DeleteMapping("/customers/delete/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     public ResponseEntity deleteCustomer(@PathVariable Long id) {
 
         if (!adminServiceImpl.delete(id)) {
@@ -50,7 +50,7 @@ public class AdminRestController {
 
     }
 
-    @PutMapping("/customers/update/{id}")
+    @PutMapping("/admin/update/{id}")
     public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Admin admin) {
 
         admin = adminServiceImpl.update(admin);

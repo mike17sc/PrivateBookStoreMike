@@ -31,7 +31,7 @@ public class ClientController {
             return new ResponseEntity(client,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/customers")
+    @PostMapping(value = "/client")
     public ResponseEntity createCustomer(@RequestBody Client client) {
 
         clientServiceImpl.create(client);
@@ -39,7 +39,7 @@ public class ClientController {
         return new ResponseEntity(client, HttpStatus.OK);
     }
 
-    @DeleteMapping("/customers/delete/{id}")
+    @DeleteMapping("/client/delete/{id}")
     public ResponseEntity deleteCustomer(@PathVariable Long id) {
 
         if (!clientServiceImpl.delete(id)) {
@@ -50,7 +50,7 @@ public class ClientController {
 
     }
 
-    @PutMapping("/customers/update/{id}")
+    @PutMapping("/client/update/{id}")
     public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Client client) {
 
         client = clientServiceImpl.update(client);

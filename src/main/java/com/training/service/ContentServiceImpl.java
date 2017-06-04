@@ -3,12 +3,14 @@ package com.training.service;
 import com.training.dao.ContentRepository;
 import com.training.model.Content;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
 /**
  * Created by Mschneider on 04-06-17.
  */
+@Component
 public class ContentServiceImpl implements ContentService {
     @Autowired
     private ContentRepository contentRepository;

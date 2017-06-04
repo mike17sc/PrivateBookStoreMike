@@ -3,12 +3,14 @@ package com.training.service;
 import com.training.dao.BuyBookRepository;
 import com.training.model.BuyBook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
 /**
  * Created by Mschneider on 04-06-17.
  */
+@Component
 public class BuyBookServiceImpl implements BuyBookService {
     @Autowired
     private BuyBookRepository buyBookRepository;

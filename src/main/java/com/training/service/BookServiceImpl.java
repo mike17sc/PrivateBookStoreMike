@@ -3,12 +3,14 @@ package com.training.service;
 import com.training.dao.BookRepository;
 import com.training.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
 /**
  * Created by Mschneider on 04-06-17.
  */
+@Component
 public class BookServiceImpl implements BookService {
     @Autowired
     private BookRepository bookRepository;

@@ -31,7 +31,7 @@ public class ContentController {
             return new ResponseEntity(content,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/customers")
+    @PostMapping(value = "/content")
     public ResponseEntity createCustomer(@RequestBody Content content) {
 
         contentServiceImpl.create(content);
@@ -39,7 +39,7 @@ public class ContentController {
         return new ResponseEntity(content, HttpStatus.OK);
     }
 
-    @DeleteMapping("/customers/delete/{id}")
+    @DeleteMapping("/content/delete/{id}")
     public ResponseEntity deleteCustomer(@PathVariable Long id) {
 
         if (!contentServiceImpl.delete(id)) {
@@ -50,7 +50,7 @@ public class ContentController {
 
     }
 
-    @PutMapping("/customers/update/{id}")
+    @PutMapping("/content/update/{id}")
     public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Content content) {
 
         content = contentServiceImpl.update(content);
