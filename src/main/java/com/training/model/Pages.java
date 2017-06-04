@@ -1,20 +1,29 @@
 package com.training.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
  * Created by Mschneider on 03-06-17.
  */
+@Entity
 public class Pages {
+    @Id
+    @GeneratedValue
     private int number;
     private String title;
-    private Content content;
+    @ManyToOne
+    private Book book;
 
     public Pages() {
     }
 
-    public Pages(int number, String title, Content content) {
+    public Pages(int number, String title, Book book) {
         this.number = number;
         this.title = title;
-        this.content = content;
+        this.book = book;
     }
 
     public int getNumber() {
@@ -33,11 +42,11 @@ public class Pages {
         this.title = title;
     }
 
-    public Content getContent() {
-        return content;
+    public Book getBook() {
+        return book;
     }
 
-    public void setContent(Content content) {
-        this.content = content;
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

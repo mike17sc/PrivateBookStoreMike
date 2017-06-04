@@ -1,20 +1,40 @@
 package com.training.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 /**
  * Created by Mschneider on 03-06-17.
  */
+@Entity
 public class Content {
+    @Id
+    @GeneratedValue
+    private int id;
     private String text;
     private Date lastUpdateDate;
+    @ManyToOne
+    private Pages pages;
 
     public Content() {
     }
 
-    public Content(String text, Date lastUpdateDate) {
+    public Content(int id,String text, Date lastUpdateDate,Pages pages) {
+        this.id=id;
         this.text = text;
         this.lastUpdateDate = lastUpdateDate;
+        this.pages=pages;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getText() {
@@ -31,5 +51,13 @@ public class Content {
 
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Pages getPages() {
+        return pages;
+    }
+
+    public void setPages(Pages pages) {
+        this.pages = pages;
     }
 }

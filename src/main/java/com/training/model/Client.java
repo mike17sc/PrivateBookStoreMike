@@ -1,10 +1,12 @@
 package com.training.model;
 
+import javax.persistence.Entity;
 import java.util.HashSet;
 
 /**
  * Created by Mschneider on 03-06-17.
  */
+@Entity
 public class Client extends User {
     private String address;
     private String email;

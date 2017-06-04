@@ -1,28 +1,31 @@
 package com.training.model;
 
+import javax.persistence.*;
 import java.util.HashSet;
 
 /**
  * Created by Mschneider on 03-06-17.
  */
+@Entity
 public class Book {
+    @Id
+    @GeneratedValue
     private Long id;
     private int price;
     private int quantity;
-    private Pages pages;
     private Boolean status;
 
     public Book() {
 
     }
 
-    public Book(Long id, int price, int quantity, Pages pages, Boolean status) {
+    public Book(Long id, int price, int quantity, Boolean status) {
         this.id = id;
         this.price = price;
         this.quantity = quantity;
-        this.pages = pages;
         this.status = status;
     }
+
     public Long getId() {
         return id;
     }
@@ -45,14 +48,6 @@ public class Book {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public Pages getPages() {
-        return pages;
-    }
-
-    public void setPages(Pages pages) {
-        this.pages = pages;
     }
 
     public Boolean getStatus() {
