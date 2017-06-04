@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * Created by Mschneider on 04-06-17.
  */
 @Repository
-public interface AdminRepository extends JpaRepository<Admin,Long> {
+public interface AdminRepository extends JpaRepository<Admin, Long> {
 }
