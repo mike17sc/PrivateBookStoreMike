@@ -22,8 +22,7 @@ public class Content {
     public Content() {
     }
 
-    public Content(Long id, String text, Date lastUpdateDate, Pages pages) {
-        this.id = id;
+    public Content(String text, Date lastUpdateDate, Pages pages) {
         this.text = text;
         this.lastUpdateDate = lastUpdateDate;
         this.pages = pages;

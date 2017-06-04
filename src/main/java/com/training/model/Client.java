@@ -13,8 +13,8 @@ public class Client extends User {
     public Client() {
     }
 
-    public Client(long id, String username, String password, String name, String address, String email) {
-        super(id, username, password, name);
+    public Client(String username, String password, String name, String address, String email) {
+        super(username, password, name);
         this.address = address;
         this.email = email;
     }

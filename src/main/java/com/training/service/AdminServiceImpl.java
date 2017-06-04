@@ -30,7 +30,11 @@ public class AdminServiceImpl implements AdminService {
     public Admin create(Admin admin) {
         if (admin.getId() != null) {
             return null;
-        } else {
+        }
+        if(admin.getName().isEmpty()||admin.getPassword().isEmpty()||admin.getUsername().isEmpty()){
+            return null;
+        }
+        else {
             return adminRepository.save(admin);
         }
     }

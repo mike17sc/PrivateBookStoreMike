@@ -18,8 +18,7 @@ public class Book {
 
     }
 
-    public Book(Long id, int price, int quantity, Boolean status) {
-        this.id = id;
+    public Book(int price, int quantity, Boolean status) {
         this.price = price;
         this.quantity = quantity;
         this.status = status;

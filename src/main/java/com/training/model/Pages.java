@@ -21,8 +21,7 @@ public class Pages {
     public Pages() {
     }
 
-    public Pages(Long id, int number, String title, Book book) {
-        this.id = id;
+    public Pages(int number, String title, Book book) {
         this.number = number;
         this.title = title;
         this.book = book;

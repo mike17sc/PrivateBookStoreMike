@@ -21,8 +21,7 @@ public class BuyBook {
     public BuyBook() {
     }
 
-    public BuyBook(Long id, Client client, Book book) {
-        this.id = id;
+    public BuyBook(Client client, Book book) {
         this.client = client;
         this.book = book;
     }

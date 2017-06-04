@@ -32,18 +32,22 @@ public class AdminRestController {
         }
     }
     @PostMapping(value = "/admin")
-    public ResponseEntity createCustomer(@RequestBody Admin admin) {
+    public ResponseEntity createAdmin(@RequestBody Admin admin) {
+        if(adminServiceImpl.create(admin)==null){
+            return new ResponseEntity(admin,HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        else{
+            adminServiceImpl.create(admin);
+            return new ResponseEntity(admin, HttpStatus.CREATED);
+        }
 
-        adminServiceImpl.create(admin);
-
-        return new ResponseEntity(admin, HttpStatus.OK);
     }
 
     @DeleteMapping("/admin/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity deleteAdmin(@PathVariable Long id) {
 
         if (!adminServiceImpl.delete(id)) {
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
+            return new ResponseEntity("No Admin found for ID " + id, HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity(id, HttpStatus.OK);
@@ -51,12 +55,12 @@ public class AdminRestController {
     }
 
     @PutMapping("/admin/update/{id}")
-    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Admin admin) {
+    public ResponseEntity updateAdmin(@PathVariable Long id, @RequestBody Admin admin) {
 
         admin = adminServiceImpl.update(admin);
 
         if (null == admin) {
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
+            return new ResponseEntity("No Admin found for ID " + id, HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity(admin, HttpStatus.OK);
