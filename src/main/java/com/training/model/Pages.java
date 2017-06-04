@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 public class Pages {
     @Id
     @GeneratedValue
+    private Long id;
     private int number;
     private String title;
     @ManyToOne
@@ -20,10 +21,19 @@ public class Pages {
     public Pages() {
     }
 
-    public Pages(int number, String title, Book book) {
+    public Pages(Long id,int number, String title, Book book) {
+        this.id=id;
         this.number = number;
         this.title = title;
         this.book = book;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getNumber() {

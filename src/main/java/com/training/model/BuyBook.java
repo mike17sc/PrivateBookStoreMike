@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 public class BuyBook {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     @OneToOne
     private Client client;
     @OneToOne
@@ -21,13 +21,13 @@ public class BuyBook {
     public BuyBook() {
     }
 
-    public BuyBook(long id, Client client, Book book) {
+    public BuyBook(Long id, Client client, Book book) {
         this.id = id;
         this.client = client;
         this.book = book;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
