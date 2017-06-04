@@ -1,7 +1,6 @@
 package com.training.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
 
 /**
  * Created by Mschneider on 03-06-17.

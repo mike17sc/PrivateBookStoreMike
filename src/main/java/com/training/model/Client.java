@@ -1,7 +1,6 @@
 package com.training.model;
 
 import javax.persistence.Entity;
-import java.util.HashSet;
 
 /**
  * Created by Mschneider on 03-06-17.
@@ -14,8 +13,8 @@ public class Client extends User {
     public Client() {
     }
 
-    public Client(long id,String username, String password, String name, String address, String email) {
-        super(id,username, password, name);
+    public Client(long id, String username, String password, String name, String address, String email) {
+        super(id, username, password, name);
         this.address = address;
         this.email = email;
     }

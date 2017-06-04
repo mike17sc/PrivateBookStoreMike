@@ -22,11 +22,11 @@ public class Content {
     public Content() {
     }
 
-    public Content(Long id,String text, Date lastUpdateDate,Pages pages) {
-        this.id=id;
+    public Content(Long id, String text, Date lastUpdateDate, Pages pages) {
+        this.id = id;
         this.text = text;
         this.lastUpdateDate = lastUpdateDate;
-        this.pages=pages;
+        this.pages = pages;
     }
 
     public Long getId() {
