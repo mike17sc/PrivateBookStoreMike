@@ -1,8 +1,6 @@
 package com.training.service;
 
-import com.training.dao.ContentRepository;
 import com.training.dao.PagesRepository;
-import com.training.model.Content;
 import com.training.model.Pages;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,9 +12,10 @@ import java.util.Collection;
 public class PagesServiceImpl implements PagesService {
     @Autowired
     private PagesRepository pagesRepository;
+
     @Override
     public Collection<Pages> list() {
-        Collection<Pages>pages= pagesRepository.findAll();
+        Collection<Pages> pages = pagesRepository.findAll();
         return pages;
     }
 
@@ -28,20 +27,18 @@ public class PagesServiceImpl implements PagesService {
 
     @Override
     public Pages create(Pages pages) {
-        if(pages.getId()!=null){
+        if (pages.getId() != null) {
             return null;
-        }
-        else{
+        } else {
             return pagesRepository.save(pages);
         }
     }
 
     @Override
     public Pages update(Pages pages) {
-        if(pages.getId()==null){
+        if (pages.getId() == null) {
             return null;
-        }
-        else {
+        } else {
             return pagesRepository.save(pages);
         }
     }

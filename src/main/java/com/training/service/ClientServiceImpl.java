@@ -1,8 +1,6 @@
 package com.training.service;
 
-import com.training.dao.BuyBookRepository;
 import com.training.dao.ClientRepository;
-import com.training.model.BuyBook;
 import com.training.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,9 +12,10 @@ import java.util.Collection;
 public class ClientServiceImpl implements ClientService {
     @Autowired
     private ClientRepository clientRepository;
+
     @Override
     public Collection<Client> list() {
-        Collection<Client>client= clientRepository.findAll();
+        Collection<Client> client = clientRepository.findAll();
         return client;
     }
 
@@ -27,20 +26,18 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client create(Client client) {
-        if(client.getId()!=null){
+        if (client.getId() != null) {
             return null;
-        }
-        else{
+        } else {
             return clientRepository.save(client);
         }
     }
 
     @Override
     public Client update(Client client) {
-        if(client.getId()==null){
+        if (client.getId() == null) {
             return null;
-        }
-        else {
+        } else {
             return clientRepository.save(client);
         }
     }

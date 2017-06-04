@@ -12,9 +12,10 @@ import java.util.Collection;
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminRepository adminRepository;
+
     @Override
     public Collection<Admin> list() {
-        Collection<Admin>admins=adminRepository.findAll();
+        Collection<Admin> admins = adminRepository.findAll();
         return admins;
     }
 
@@ -25,20 +26,18 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin create(Admin admin) {
-        if(admin.getId()!=null){
+        if (admin.getId() != null) {
             return null;
-        }
-        else{
+        } else {
             return adminRepository.save(admin);
         }
     }
 
     @Override
     public Admin update(Admin admin) {
-        if(admin.getId()==null){
+        if (admin.getId() == null) {
             return null;
-        }
-        else {
+        } else {
             return adminRepository.save(admin);
         }
     }

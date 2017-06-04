@@ -1,8 +1,6 @@
 package com.training.service;
 
-import com.training.dao.PagesRepository;
 import com.training.dao.UserRepository;
-import com.training.model.Pages;
 import com.training.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,9 +12,10 @@ import java.util.Collection;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+
     @Override
     public Collection<User> list() {
-        Collection<User>user= userRepository.findAll();
+        Collection<User> user = userRepository.findAll();
         return user;
     }
 
@@ -28,20 +27,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-        if(user.getId()!=null){
+        if (user.getId() != null) {
             return null;
-        }
-        else{
+        } else {
             return userRepository.save(user);
         }
     }
 
     @Override
     public User update(User user) {
-        if(user.getId()==null){
+        if (user.getId() == null) {
             return null;
-        }
-        else {
+        } else {
             return userRepository.save(user);
         }
     }

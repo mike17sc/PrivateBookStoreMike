@@ -1,8 +1,6 @@
 package com.training.service;
 
-import com.training.dao.BookRepository;
 import com.training.dao.BuyBookRepository;
-import com.training.model.Book;
 import com.training.model.BuyBook;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,9 +12,10 @@ import java.util.Collection;
 public class BuyBookServiceImpl implements BuyBookService {
     @Autowired
     private BuyBookRepository buyBookRepository;
+
     @Override
     public Collection<BuyBook> list() {
-        Collection<BuyBook>buyBooks= buyBookRepository.findAll();
+        Collection<BuyBook> buyBooks = buyBookRepository.findAll();
         return buyBooks;
     }
 
@@ -27,20 +26,18 @@ public class BuyBookServiceImpl implements BuyBookService {
 
     @Override
     public BuyBook create(BuyBook buyBook) {
-        if(buyBook.getId()!=null){
+        if (buyBook.getId() != null) {
             return null;
-        }
-        else{
+        } else {
             return buyBookRepository.save(buyBook);
         }
     }
 
     @Override
     public BuyBook update(BuyBook buyBook) {
-        if(buyBook.getId()==null){
+        if (buyBook.getId() == null) {
             return null;
-        }
-        else {
+        } else {
             return buyBookRepository.save(buyBook);
         }
     }
