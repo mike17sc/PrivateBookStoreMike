@@ -13,7 +13,7 @@ import java.util.Date;
 public class Content {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     private String text;
     private Date lastUpdateDate;
     @ManyToOne
@@ -22,18 +22,18 @@ public class Content {
     public Content() {
     }
 
-    public Content(int id,String text, Date lastUpdateDate,Pages pages) {
+    public Content(Long id,String text, Date lastUpdateDate,Pages pages) {
         this.id=id;
         this.text = text;
         this.lastUpdateDate = lastUpdateDate;
         this.pages=pages;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
