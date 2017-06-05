@@ -28,12 +28,7 @@ public class LoginLogServiceImpl implements LoginLogService {
 
     @Override
     public LoginLog create(LoginLog loginLog) {
-        if (loginLog.getId() != null) {
-            return null;
-        }
-        else {
-            return loginLogRepository.save(loginLog);
-        }
+        return loginLogRepository.save(loginLog);
     }
 
     @Override

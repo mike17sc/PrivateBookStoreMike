@@ -2,9 +2,11 @@ package com.training.Controller;
 
 import com.training.model.Admin;
 import com.training.model.Client;
+import com.training.model.LoginLog;
 import com.training.model.User;
 import com.training.service.AdminService;
 import com.training.service.ClientService;
+import com.training.service.LoginLogServiceImpl;
 import com.training.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by Mschneider on 04-06-17.
@@ -24,6 +27,8 @@ public class UserController {
     public AdminService adminService;
     @Autowired
     public ClientService clientService;
+    @Autowired
+    public LoginLogServiceImpl loginLogService;
 
     @GetMapping("/user")
     public Collection<User> getUsers() {
@@ -43,9 +48,12 @@ public class UserController {
     @PostMapping("/user/login")
     public ResponseEntity loginUser(@RequestBody String username, String password) {
         User user = userServiceImpl.get(username, password);
+
         if (user == null) {
             return new ResponseEntity("Wrong username or password", HttpStatus.UNAUTHORIZED);
         } else {
+            LoginLog log = new LoginLog(user, new Date(), null);
+            loginLogService.create(log);
             Admin admin = adminService.get(user.getId());
             if (admin != null) {
                 return new ResponseEntity(admin, HttpStatus.OK);
