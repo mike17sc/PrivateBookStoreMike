@@ -12,6 +12,8 @@ public interface UserService {
 
     User get(Long id);
 
+    User get(String username,String password);
+
     User create(User user);
 
     User update(User user);
