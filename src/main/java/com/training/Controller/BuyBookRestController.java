@@ -1,5 +1,6 @@
 package com.training.Controller;
 
+import com.training.model.Book;
 import com.training.model.BuyBook;
 import com.training.service.BookServiceImpl;
 import com.training.service.BuyBookServiceImpl;
@@ -38,6 +39,10 @@ public class BuyBookRestController {
     public ResponseEntity createBuybook(@RequestBody BuyBook buyBook) {
 
         buyBookServiceImpl.create(buyBook);
+        Book book= buyBook.getBook();
+        book.setQuantity(book.getQuantity()-1);
+        bookServiceImpl.update(book);
+
 
         return new ResponseEntity(buyBook, HttpStatus.OK);
     }
