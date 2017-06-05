@@ -35,7 +35,7 @@ public class BuyBookRestController {
         }
     }
     @PostMapping(value = "/buybook")
-    public ResponseEntity createCustomer(@RequestBody BuyBook buyBook) {
+    public ResponseEntity createBuybook(@RequestBody BuyBook buyBook) {
 
         buyBookServiceImpl.create(buyBook);
 
@@ -43,7 +43,7 @@ public class BuyBookRestController {
     }
 
     @DeleteMapping("/buybook/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity deleteBuybook(@PathVariable Long id) {
 
         if (!buyBookServiceImpl.delete(id)) {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
@@ -54,7 +54,7 @@ public class BuyBookRestController {
     }
 
     @PutMapping("/buybook/update/{id}")
-    public ResponseEntity updatebuybook(@PathVariable Long id, @RequestBody BuyBook buyBook) {
+    public ResponseEntity updateBuybook(@PathVariable Long id, @RequestBody BuyBook buyBook) {
 
         buyBook = buyBookServiceImpl.update(buyBook);
 
