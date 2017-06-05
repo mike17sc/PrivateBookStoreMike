@@ -32,7 +32,7 @@ public class PagesController {
         }
     }
     @PostMapping(value = "/pages")
-    public ResponseEntity createCustomer(@RequestBody Pages pages) {
+    public ResponseEntity createPages(@RequestBody Pages pages) {
 
         pagesServiceImpl.create(pages);
 
@@ -40,7 +40,7 @@ public class PagesController {
     }
 
     @DeleteMapping("/pages/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity deletePages(@PathVariable Long id) {
 
         if (!pagesServiceImpl.delete(id)) {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
@@ -51,7 +51,7 @@ public class PagesController {
     }
 
     @PutMapping("/pages/update/{id}")
-    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Pages pages) {
+    public ResponseEntity updatePages(@PathVariable Long id, @RequestBody Pages pages) {
 
         pages = pagesServiceImpl.update(pages);
 

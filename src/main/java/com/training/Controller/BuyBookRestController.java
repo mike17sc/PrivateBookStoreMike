@@ -1,6 +1,7 @@
 package com.training.Controller;
 
 import com.training.model.BuyBook;
+import com.training.service.BookServiceImpl;
 import com.training.service.BuyBookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,8 @@ import java.util.Collection;
 public class BuyBookRestController {
     @Autowired
     private BuyBookServiceImpl buyBookServiceImpl;
+    @Autowired
+    private BookServiceImpl bookServiceImpl;
 
     @GetMapping("/buyBook")
     public Collection<BuyBook> getBuyBooks(){
@@ -51,9 +54,10 @@ public class BuyBookRestController {
     }
 
     @PutMapping("/buybook/update/{id}")
-    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody BuyBook buyBook) {
+    public ResponseEntity updatebuybook(@PathVariable Long id, @RequestBody BuyBook buyBook) {
 
         buyBook = buyBookServiceImpl.update(buyBook);
+
 
         if (null == buyBook) {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);

@@ -32,7 +32,7 @@ public class ClientController {
         }
     }
     @PostMapping(value = "/client")
-    public ResponseEntity createCustomer(@RequestBody Client client) {
+    public ResponseEntity createClient(@RequestBody Client client) {
 
         clientServiceImpl.create(client);
 
@@ -40,7 +40,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/client/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity deleteClient(@PathVariable Long id) {
 
         if (!clientServiceImpl.delete(id)) {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
@@ -51,7 +51,7 @@ public class ClientController {
     }
 
     @PutMapping("/client/update/{id}")
-    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Client client) {
+    public ResponseEntity updateClient(@PathVariable Long id, @RequestBody Client client) {
 
         client = clientServiceImpl.update(client);
 

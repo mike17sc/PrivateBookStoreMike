@@ -31,7 +31,7 @@ public class BookRestController {
             return new ResponseEntity(book,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/customers")
+    @PostMapping(value = "/books")
     public ResponseEntity createCustomer(@RequestBody Book book) {
 
         bookServiceImpl.create(book);
@@ -39,7 +39,7 @@ public class BookRestController {
         return new ResponseEntity(book, HttpStatus.OK);
     }
 
-    @DeleteMapping("/customers/delete/{id}")
+    @DeleteMapping("/books/delete/{id}")
     public ResponseEntity deleteCustomer(@PathVariable Long id) {
 
         if (!bookServiceImpl.delete(id)) {

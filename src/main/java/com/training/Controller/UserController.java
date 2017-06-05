@@ -68,7 +68,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/user")
-    public ResponseEntity createCustomer(@RequestBody User user) {
+    public ResponseEntity createUser(@RequestBody User user) {
 
         userServiceImpl.create(user);
 
@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity deleteUser(@PathVariable Long id) {
 
         if (!userServiceImpl.delete(id)) {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);

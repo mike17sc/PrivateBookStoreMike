@@ -1,6 +1,8 @@
 package com.training.service;
 
+import com.training.dao.BookRepository;
 import com.training.dao.BuyBookRepository;
+import com.training.model.Book;
 import com.training.model.BuyBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

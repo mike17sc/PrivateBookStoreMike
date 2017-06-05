@@ -32,7 +32,7 @@ public class ContentController {
         }
     }
     @PostMapping(value = "/content")
-    public ResponseEntity createCustomer(@RequestBody Content content) {
+    public ResponseEntity createContent(@RequestBody Content content) {
 
         contentServiceImpl.create(content);
 
@@ -40,7 +40,7 @@ public class ContentController {
     }
 
     @DeleteMapping("/content/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity deleteContent(@PathVariable Long id) {
 
         if (!contentServiceImpl.delete(id)) {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
@@ -51,7 +51,7 @@ public class ContentController {
     }
 
     @PutMapping("/content/update/{id}")
-    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Content content) {
+    public ResponseEntity updateContent(@PathVariable Long id, @RequestBody Content content) {
 
         content = contentServiceImpl.update(content);
 
