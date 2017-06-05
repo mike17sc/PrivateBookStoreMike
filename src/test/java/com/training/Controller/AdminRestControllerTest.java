@@ -14,27 +14,30 @@ import org.springframework.web.client.RestTemplate;
 
 public class AdminRestControllerTest {
     @Test
-    public void testCreate() {
+    public void testCreateViewDelete() {
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl = "http://localhost:8080/admin";
         Admin admin = new Admin("Mikesc", "123", "Schneider");
         ResponseEntity<Admin> responseEntity = restTemplate.postForEntity(fooResourceUrl, admin, Admin.class);
-        System.out.println(responseEntity.getBody());
+        System.out.println(responseEntity.getBody().getId()+responseEntity.getBody().getUsername()+responseEntity.getBody().getName());
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         System.out.println("admin added...");
+
+        ResponseEntity<String> responseEntity1= restTemplate.getForEntity(fooResourceUrl,String.class);
+
     }
+
     @Test
-    public void testCreateNull() throws Exception{
-        try{
+    public void testCreateNull() throws Exception {
+        try {
             RestTemplate restTemplate = new RestTemplate();
             String fooResourceUrl = "http://localhost:8080/admin";
-            Admin admin = new Admin("","","");
+            Admin admin = new Admin("", "", "");
             ResponseEntity<Admin> responseEntity = restTemplate.postForEntity(fooResourceUrl, admin, Admin.class);
             System.out.println(responseEntity.getBody());
             Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
             System.out.println("admin added...");
-        }
-        catch(HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             Assertions.assertThat(e.getMessage()).isEqualTo("422 null");
         }
 
