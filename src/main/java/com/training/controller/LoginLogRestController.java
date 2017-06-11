@@ -17,7 +17,7 @@ public class LoginLogRestController {
     @Autowired
     private LoginLogServiceImpl loginLogServiceImpl;
 
-    @GetMapping("/loginLog")
+    @GetMapping("api/loginLog")
     public Collection<LoginLog> getLoginLogs(){
         return loginLogServiceImpl.list();
     }
@@ -31,7 +31,7 @@ public class LoginLogRestController {
             return new ResponseEntity(loginLog,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/loginLog")
+    @PostMapping(value = "api/loginLog")
     public ResponseEntity createLoginLog(@RequestBody LoginLog loginLog) {
         if(loginLogServiceImpl.create(loginLog)==null){
             return new ResponseEntity(loginLog,HttpStatus.UNPROCESSABLE_ENTITY);
@@ -43,7 +43,7 @@ public class LoginLogRestController {
 
     }
 
-    @DeleteMapping("/loginLog/delete/{id}")
+    @DeleteMapping("api/loginLog/delete/{id}")
     public ResponseEntity deleteLoginLog(@PathVariable Long id) {
 
         if (!loginLogServiceImpl.delete(id)) {
@@ -54,7 +54,7 @@ public class LoginLogRestController {
 
     }
 
-    @PutMapping("/loginLog/update/{id}")
+    @PutMapping("api/loginLog/update/{id}")
     public ResponseEntity updateLoginLog(@PathVariable Long id, @RequestBody LoginLog loginLog) {
 
         loginLog = loginLogServiceImpl.update(loginLog);

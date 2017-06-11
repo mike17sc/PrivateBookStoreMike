@@ -17,11 +17,11 @@ public class AdminRestController {
     @Autowired
     private AdminServiceImpl adminServiceImpl;
 
-    @GetMapping("/admin")
+    @GetMapping("api/admin")
     public Collection<Admin> getAdmins(){
         return adminServiceImpl.list();
     }
-    @GetMapping("/admin/{id}")
+    @GetMapping("api/admin/{id}")
     public ResponseEntity getAdmin(@PathVariable("id")Long id){
         Admin admin= adminServiceImpl.get(id);
         if (admin==null){
@@ -31,7 +31,7 @@ public class AdminRestController {
             return new ResponseEntity(admin,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/admin")
+    @PostMapping(value = "api/admin")
     public ResponseEntity createAdmin(@RequestBody Admin admin) {
         if(adminServiceImpl.create(admin)==null){
             return new ResponseEntity(admin,HttpStatus.UNPROCESSABLE_ENTITY);
@@ -43,7 +43,7 @@ public class AdminRestController {
 
     }
 
-    @DeleteMapping("/admin/delete/{id}")
+    @DeleteMapping("api/admin/delete/{id}")
     public ResponseEntity deleteAdmin(@PathVariable Long id) {
 
         if (!adminServiceImpl.delete(id)) {
@@ -54,7 +54,7 @@ public class AdminRestController {
 
     }
 
-    @PutMapping("/admin/update/{id}")
+    @PutMapping("api/admin/update/{id}")
     public ResponseEntity updateAdmin(@PathVariable Long id, @RequestBody Admin admin) {
 
         admin = adminServiceImpl.update(admin);

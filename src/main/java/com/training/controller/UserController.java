@@ -35,7 +35,7 @@ public class UserController {
         return userServiceImpl.list();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("api/user/{id}")
     public ResponseEntity getUser(@PathVariable("id") Long id) {
         User user = userServiceImpl.get(id);
         if (user == null) {
@@ -45,7 +45,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("api/user/login")
     public ResponseEntity loginUser(@RequestBody String username, String password) {
         User user = userServiceImpl.get(username, password);
 
@@ -67,7 +67,7 @@ public class UserController {
 
     }
 
-    @PostMapping(value = "/user")
+    @PostMapping(value = "api/user")
     public ResponseEntity createUser(@RequestBody User user) {
 
         userServiceImpl.create(user);
@@ -75,7 +75,7 @@ public class UserController {
         return new ResponseEntity(user, HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/delete/{id}")
+    @DeleteMapping("api/user/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
 
         if (!userServiceImpl.delete(id)) {
@@ -86,7 +86,7 @@ public class UserController {
 
     }
 
-    @PutMapping("/user/update/{id}")
+    @PutMapping("api/user/update/{id}")
     public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody User user) {
 
         user = userServiceImpl.update(user);

@@ -17,11 +17,11 @@ public class ContentController {
     @Autowired
     private ContentServiceImpl contentServiceImpl;
 
-    @GetMapping("/content")
+    @GetMapping("api/content")
     public Collection<Content> getContents(){
         return contentServiceImpl.list();
     }
-    @GetMapping("/content/{id}")
+    @GetMapping("api/content/{id}")
     public ResponseEntity getContent(@PathVariable("id")Long id){
         Content content= contentServiceImpl.get(id);
         if (content==null){
@@ -31,7 +31,7 @@ public class ContentController {
             return new ResponseEntity(content,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/content")
+    @PostMapping(value = "api/content")
     public ResponseEntity createContent(@RequestBody Content content) {
 
         contentServiceImpl.create(content);
@@ -39,7 +39,7 @@ public class ContentController {
         return new ResponseEntity(content, HttpStatus.OK);
     }
 
-    @DeleteMapping("/content/delete/{id}")
+    @DeleteMapping("api/content/delete/{id}")
     public ResponseEntity deleteContent(@PathVariable Long id) {
 
         if (!contentServiceImpl.delete(id)) {
@@ -50,7 +50,7 @@ public class ContentController {
 
     }
 
-    @PutMapping("/content/update/{id}")
+    @PutMapping("api/content/update/{id}")
     public ResponseEntity updateContent(@PathVariable Long id, @RequestBody Content content) {
 
         content = contentServiceImpl.update(content);

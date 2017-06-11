@@ -17,11 +17,11 @@ public class ClientController {
     @Autowired
     private ClientServiceImpl clientServiceImpl;
 
-    @GetMapping("/client")
+    @GetMapping("api/client")
     public Collection<Client> getClients(){
         return clientServiceImpl.list();
     }
-    @GetMapping("/client/{id}")
+    @GetMapping("api/client/{id}")
     public ResponseEntity getClient(@PathVariable("id")Long id){
         Client client= clientServiceImpl.get(id);
         if (client==null){
@@ -31,7 +31,7 @@ public class ClientController {
             return new ResponseEntity(client,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/client")
+    @PostMapping(value = "api/client")
     public ResponseEntity createClient(@RequestBody Client client) {
 
         clientServiceImpl.create(client);
@@ -39,7 +39,7 @@ public class ClientController {
         return new ResponseEntity(client, HttpStatus.OK);
     }
 
-    @DeleteMapping("/client/delete/{id}")
+    @DeleteMapping("api/client/delete/{id}")
     public ResponseEntity deleteClient(@PathVariable Long id) {
 
         if (!clientServiceImpl.delete(id)) {
@@ -50,7 +50,7 @@ public class ClientController {
 
     }
 
-    @PutMapping("/client/update/{id}")
+    @PutMapping("api/client/update/{id}")
     public ResponseEntity updateClient(@PathVariable Long id, @RequestBody Client client) {
 
         client = clientServiceImpl.update(client);

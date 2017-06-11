@@ -17,11 +17,11 @@ public class PagesController {
     @Autowired
     private PagesServiceImpl pagesServiceImpl;
 
-    @GetMapping("/pages")
+    @GetMapping("api/pages")
     public Collection<Pages> getPagess(){
         return pagesServiceImpl.list();
     }
-    @GetMapping("/pages/{id}")
+    @GetMapping("api/pages/{id}")
     public ResponseEntity getPages(@PathVariable("id")Long id){
         Pages pages= pagesServiceImpl.get(id);
         if (pages==null){
@@ -31,7 +31,7 @@ public class PagesController {
             return new ResponseEntity(pages,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/pages")
+    @PostMapping(value = "api/pages")
     public ResponseEntity createPages(@RequestBody Pages pages) {
 
         pagesServiceImpl.create(pages);
@@ -39,7 +39,7 @@ public class PagesController {
         return new ResponseEntity(pages, HttpStatus.OK);
     }
 
-    @DeleteMapping("/pages/delete/{id}")
+    @DeleteMapping("api/pages/delete/{id}")
     public ResponseEntity deletePages(@PathVariable Long id) {
 
         if (!pagesServiceImpl.delete(id)) {
@@ -50,7 +50,7 @@ public class PagesController {
 
     }
 
-    @PutMapping("/pages/update/{id}")
+    @PutMapping("api/pages/update/{id}")
     public ResponseEntity updatePages(@PathVariable Long id, @RequestBody Pages pages) {
 
         pages = pagesServiceImpl.update(pages);

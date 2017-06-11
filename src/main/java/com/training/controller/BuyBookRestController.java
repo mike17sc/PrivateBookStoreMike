@@ -21,11 +21,11 @@ public class BuyBookRestController {
     @Autowired
     private BookServiceImpl bookServiceImpl;
 
-    @GetMapping("/buyBook")
+    @GetMapping("api/buyBook")
     public Collection<BuyBook> getBuyBooks(){
         return buyBookServiceImpl.list();
     }
-    @GetMapping("/buyBook/{id}")
+    @GetMapping("api/buyBook/{id}")
     public ResponseEntity getBuyBook(@PathVariable("id")Long id){
         BuyBook buyBook= buyBookServiceImpl.get(id);
         if (buyBook==null){
@@ -35,7 +35,7 @@ public class BuyBookRestController {
             return new ResponseEntity(buyBook,HttpStatus.OK);
         }
     }
-    @PostMapping(value = "/buybook")
+    @PostMapping(value = "api/buybook")
     public ResponseEntity createBuybook(@RequestBody BuyBook buyBook) {
 
         buyBookServiceImpl.create(buyBook);
@@ -47,7 +47,7 @@ public class BuyBookRestController {
         return new ResponseEntity(buyBook, HttpStatus.OK);
     }
 
-    @DeleteMapping("/buybook/delete/{id}")
+    @DeleteMapping("api/buybook/delete/{id}")
     public ResponseEntity deleteBuybook(@PathVariable Long id) {
 
         if (!buyBookServiceImpl.delete(id)) {
@@ -58,7 +58,7 @@ public class BuyBookRestController {
 
     }
 
-    @PutMapping("/buybook/update/{id}")
+    @PutMapping("api/buybook/update/{id}")
     public ResponseEntity updateBuybook(@PathVariable Long id, @RequestBody BuyBook buyBook) {
 
         buyBook = buyBookServiceImpl.update(buyBook);
