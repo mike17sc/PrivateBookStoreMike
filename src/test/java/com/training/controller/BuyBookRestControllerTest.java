@@ -1,8 +1,6 @@
-package com.training.Controller;
+package com.training.controller;
 
-import com.training.model.Book;
 import com.training.model.BuyBook;
-import com.training.service.BookServiceImpl;
 import com.training.service.BuyBookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +13,9 @@ import java.util.Collection;
  * Created by Mschneider on 04-06-17.
  */
 @RestController
-public class BuyBookRestController {
+public class BuyBookRestControllerTest {
     @Autowired
     private BuyBookServiceImpl buyBookServiceImpl;
-    @Autowired
-    private BookServiceImpl bookServiceImpl;
 
     @GetMapping("/buyBook")
     public Collection<BuyBook> getBuyBooks(){
@@ -36,19 +32,15 @@ public class BuyBookRestController {
         }
     }
     @PostMapping(value = "/buybook")
-    public ResponseEntity createBuybook(@RequestBody BuyBook buyBook) {
+    public ResponseEntity createCustomer(@RequestBody BuyBook buyBook) {
 
         buyBookServiceImpl.create(buyBook);
-        Book book= buyBook.getBook();
-        book.setQuantity(book.getQuantity()-1);
-        bookServiceImpl.update(book);
-
 
         return new ResponseEntity(buyBook, HttpStatus.OK);
     }
 
     @DeleteMapping("/buybook/delete/{id}")
-    public ResponseEntity deleteBuybook(@PathVariable Long id) {
+    public ResponseEntity deleteCustomer(@PathVariable Long id) {
 
         if (!buyBookServiceImpl.delete(id)) {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
@@ -59,10 +51,9 @@ public class BuyBookRestController {
     }
 
     @PutMapping("/buybook/update/{id}")
-    public ResponseEntity updateBuybook(@PathVariable Long id, @RequestBody BuyBook buyBook) {
+    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody BuyBook buyBook) {
 
         buyBook = buyBookServiceImpl.update(buyBook);
-
 
         if (null == buyBook) {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);

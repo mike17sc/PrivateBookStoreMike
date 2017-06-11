@@ -1,4 +1,4 @@
-package com.training.Controller;
+package com.training.controller;
 
 import com.training.model.Content;
 import com.training.service.ContentServiceImpl;

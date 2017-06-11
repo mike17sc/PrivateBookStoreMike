@@ -1,4 +1,4 @@
-package com.training.Controller;
+package com.training.controller;
 
 import com.training.model.Client;
 import com.training.service.ClientServiceImpl;
@@ -13,7 +13,7 @@ import java.util.Collection;
  * Created by Mschneider on 04-06-17.
  */
 @RestController
-public class ClientController {
+public class ClientControllerTest {
     @Autowired
     private ClientServiceImpl clientServiceImpl;
 
@@ -32,7 +32,7 @@ public class ClientController {
         }
     }
     @PostMapping(value = "/client")
-    public ResponseEntity createClient(@RequestBody Client client) {
+    public ResponseEntity createCustomer(@RequestBody Client client) {
 
         clientServiceImpl.create(client);
 
@@ -40,7 +40,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/client/delete/{id}")
-    public ResponseEntity deleteClient(@PathVariable Long id) {
+    public ResponseEntity deleteCustomer(@PathVariable Long id) {
 
         if (!clientServiceImpl.delete(id)) {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
@@ -51,7 +51,7 @@ public class ClientController {
     }
 
     @PutMapping("/client/update/{id}")
-    public ResponseEntity updateClient(@PathVariable Long id, @RequestBody Client client) {
+    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Client client) {
 
         client = clientServiceImpl.update(client);
 
