@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by Mschneider on 04-06-17.
@@ -32,6 +33,7 @@ public class ContentServiceImpl implements ContentService {
         if (content.getId() != null) {
             return null;
         } else {
+            content.setLastUpdateDate(new Date());
             return contentRepository.save(content);
         }
     }
@@ -41,6 +43,7 @@ public class ContentServiceImpl implements ContentService {
         if (content.getId() == null) {
             return null;
         } else {
+            content.setLastUpdateDate(new Date());
             return contentRepository.save(content);
         }
     }

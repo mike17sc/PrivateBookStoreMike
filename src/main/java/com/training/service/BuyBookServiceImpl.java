@@ -16,6 +16,8 @@ import java.util.Collection;
 public class BuyBookServiceImpl implements BuyBookService {
     @Autowired
     private BuyBookRepository buyBookRepository;
+    @Autowired
+    private BookServiceImpl bookServiceImpl;
 
     @Override
     public Collection<BuyBook> list() {
@@ -29,10 +31,18 @@ public class BuyBookServiceImpl implements BuyBookService {
     }
 
     @Override
-    public BuyBook create(BuyBook buyBook) {
+    public BuyBook create(BuyBook buyBook){
+        int newQuantity=buyBook.getBook().getQuantity()-buyBook.getQuantity();
         if (buyBook.getId() != null) {
             return null;
-        } else {
+        }
+        if (newQuantity<0){
+            return null;
+        }
+        else {
+
+            buyBook.getBook().setQuantity(newQuantity);
+            bookServiceImpl.update(buyBook.getBook());
             return buyBookRepository.save(buyBook);
         }
     }
@@ -50,5 +60,9 @@ public class BuyBookServiceImpl implements BuyBookService {
     public boolean delete(Long id) {
         buyBookRepository.delete(id);
         return true;
+    }
+    @Override
+    public int totalBookSold(){
+        return buyBookRepository.totalBookSold();
     }
 }

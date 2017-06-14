@@ -21,12 +21,11 @@ public class BookRestControllerTest {
     public void testCreateViewDelete() {
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl = "http://localhost:8080/api/book";
-        Book book = new Book(50, 20, true);
+        Book book = new Book(20,20);
         ResponseEntity<Book> responseEntity = restTemplate.postForEntity(fooResourceUrl, book, Book.class);
         System.out.println(responseEntity.getBody().getId()+responseEntity.getBody().getQuantity()+responseEntity.getBody().getPrice());
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         System.out.println("book added...");
-
         ResponseEntity<String> responseEntity1= restTemplate.getForEntity(fooResourceUrl,String.class);
 
     }

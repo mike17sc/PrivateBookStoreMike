@@ -12,16 +12,21 @@ public class Book {
     private Long id;
     private int price;
     private int quantity;
-    private Boolean status;
+    private String status;
 
     public Book() {
 
     }
 
-    public Book(int price, int quantity, Boolean status) {
+    public Book(int price, int quantity) {
         this.price = price;
         this.quantity = quantity;
-        this.status = status;
+        if(quantity<=0){
+            this.status="OUT_OF_STOCK";
+        }
+        else{
+            this.status="AVAILABLE";
+        }
     }
 
     public Long getId() {
@@ -45,14 +50,17 @@ public class Book {
     }
 
     public void setQuantity(int quantity) {
+        if (quantity==0){
+            this.status="OUT_OF_STOCK";
+        }
         this.quantity = quantity;
     }
 
-    public Boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

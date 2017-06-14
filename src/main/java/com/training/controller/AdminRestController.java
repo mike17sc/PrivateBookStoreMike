@@ -2,6 +2,7 @@ package com.training.controller;
 
 import com.training.model.Admin;
 import com.training.service.AdminServiceImpl;
+import com.training.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ import java.util.Collection;
 public class AdminRestController {
     @Autowired
     private AdminServiceImpl adminServiceImpl;
+    @Autowired
+    private UserServiceImpl userServiceImpl;
 
     @GetMapping("api/admin")
     public Collection<Admin> getAdmins(){
@@ -33,14 +36,16 @@ public class AdminRestController {
     }
     @PostMapping(value = "api/admin")
     public ResponseEntity createAdmin(@RequestBody Admin admin) {
-        if(adminServiceImpl.create(admin)==null){
+        if(admin==null){
             return new ResponseEntity(admin,HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        else if(userServiceImpl.get(admin.getUsername())!=null){
+            return new ResponseEntity(admin, HttpStatus.CONFLICT);
         }
         else{
             adminServiceImpl.create(admin);
             return new ResponseEntity(admin, HttpStatus.CREATED);
         }
-
     }
 
     @DeleteMapping("api/admin/delete/{id}")

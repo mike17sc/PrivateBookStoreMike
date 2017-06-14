@@ -12,9 +12,11 @@ public interface BuyBookService {
 
     BuyBook get(Long id);
 
-    BuyBook create(BuyBook buyBook);
+    BuyBook create(BuyBook buyBook) throws MyException;
 
     BuyBook update(BuyBook buyBook);
 
     boolean delete(Long id);
+
+    int totalBookSold();
 }

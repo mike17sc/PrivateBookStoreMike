@@ -22,26 +22,37 @@ public class BuyBookRestController {
     private BookServiceImpl bookServiceImpl;
 
     @GetMapping("api/buyBook")
-    public Collection<BuyBook> getBuyBooks(){
+    public Collection<BuyBook> getBuyBooks() {
         return buyBookServiceImpl.list();
     }
+
     @GetMapping("api/buyBook/{id}")
-    public ResponseEntity getBuyBook(@PathVariable("id")Long id){
-        BuyBook buyBook= buyBookServiceImpl.get(id);
-        if (buyBook==null){
+    public ResponseEntity getBuyBook(@PathVariable("id") Long id) {
+        BuyBook buyBook = buyBookServiceImpl.get(id);
+        if (buyBook == null) {
             return new ResponseEntity("No buyBook found for ID" + id, HttpStatus.NOT_FOUND);
-        }
-        else {
-            return new ResponseEntity(buyBook,HttpStatus.OK);
+        } else {
+            return new ResponseEntity(buyBook, HttpStatus.OK);
         }
     }
+
+    @GetMapping("api/buyBook/totalBookSold")
+
+    public int totalBookSold()
+
+    {
+        return buyBookServiceImpl.totalBookSold();
+    }
+
     @PostMapping(value = "api/buybook")
     public ResponseEntity createBuybook(@RequestBody BuyBook buyBook) {
 
-        buyBookServiceImpl.create(buyBook);
-        Book book= buyBook.getBook();
-        book.setQuantity(book.getQuantity()-1);
-        bookServiceImpl.update(book);
+        BuyBook newBuybook = buyBookServiceImpl.create(buyBook);
+        if (newBuybook == null) {
+            return new ResponseEntity("Sell not registered", HttpStatus.BAD_REQUEST);
+        } else {
+
+        }
 
 
         return new ResponseEntity(buyBook, HttpStatus.OK);

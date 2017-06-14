@@ -2,6 +2,7 @@ package com.training.controller;
 
 import com.training.model.Client;
 import com.training.service.ClientServiceImpl;
+import com.training.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,27 +17,35 @@ import java.util.Collection;
 public class ClientController {
     @Autowired
     private ClientServiceImpl clientServiceImpl;
+    @Autowired
+    private UserServiceImpl userServiceImpl;
 
     @GetMapping("api/client")
-    public Collection<Client> getClients(){
+    public Collection<Client> getClients() {
         return clientServiceImpl.list();
     }
+
     @GetMapping("api/client/{id}")
-    public ResponseEntity getClient(@PathVariable("id")Long id){
-        Client client= clientServiceImpl.get(id);
-        if (client==null){
+    public ResponseEntity getClient(@PathVariable("id") Long id) {
+        Client client = clientServiceImpl.get(id);
+        if (client == null) {
             return new ResponseEntity("No client found for ID" + id, HttpStatus.NOT_FOUND);
-        }
-        else {
-            return new ResponseEntity(client,HttpStatus.OK);
+        } else {
+            return new ResponseEntity(client, HttpStatus.OK);
         }
     }
+
     @PostMapping(value = "api/client")
     public ResponseEntity createClient(@RequestBody Client client) {
+        if (client == null) {
+            return new ResponseEntity(client, HttpStatus.UNPROCESSABLE_ENTITY);
+        } else if (userServiceImpl.get(client.getUsername()) != null) {
+            return new ResponseEntity(client, HttpStatus.CONFLICT);
+        } else {
+            clientServiceImpl.create(client);
+            return new ResponseEntity(client, HttpStatus.OK);
+        }
 
-        clientServiceImpl.create(client);
-
-        return new ResponseEntity(client, HttpStatus.OK);
     }
 
     @DeleteMapping("api/client/delete/{id}")

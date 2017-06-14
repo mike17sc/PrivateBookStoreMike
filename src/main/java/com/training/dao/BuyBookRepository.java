@@ -2,6 +2,7 @@ package com.training.dao;
 
 import com.training.model.BuyBook;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BuyBookRepository extends JpaRepository<BuyBook, Long> {
+    public int totalBookSold();
 }

@@ -1,14 +1,12 @@
 package com.training.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Created by Mschneider on 03-06-17.
  */
 @Entity
+@NamedQuery(name="BuyBook.totalBookSold",query="SELECT SUM(b.quantity)FROM BuyBook b")
 public class BuyBook {
     @Id
     @GeneratedValue
@@ -17,13 +15,17 @@ public class BuyBook {
     private Client client;
     @OneToOne
     private Book book;
+    private int quantity;
+    private String delivery;
 
     public BuyBook() {
     }
 
-    public BuyBook(Client client, Book book) {
+    public BuyBook(Client client, Book book, int quantity,String delivery) {
         this.client = client;
         this.book = book;
+        this.quantity = quantity;
+        this.delivery=delivery;
     }
 
     public Long getId() {
@@ -48,5 +50,21 @@ public class BuyBook {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = delivery;
     }
 }

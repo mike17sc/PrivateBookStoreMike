@@ -21,7 +21,7 @@ public class LoginLogRestController {
     public Collection<LoginLog> getLoginLogs(){
         return loginLogServiceImpl.list();
     }
-    @GetMapping("/loginLog/{id}")
+    @GetMapping("api/loginLog/{id}")
     public ResponseEntity getLoginLog(@PathVariable("id")Long id){
         LoginLog loginLog= loginLogServiceImpl.get(id);
         if (loginLog==null){

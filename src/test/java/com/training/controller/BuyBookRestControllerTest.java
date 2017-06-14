@@ -1,64 +1,36 @@
 package com.training.controller;
 
+import com.training.model.Book;
 import com.training.model.BuyBook;
-import com.training.service.BuyBookServiceImpl;
+import com.training.model.Client;
+import com.training.service.BookServiceImpl;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
 
 /**
  * Created by Mschneider on 04-06-17.
  */
-@RestController
+
 public class BuyBookRestControllerTest {
-    @Autowired
-    private BuyBookServiceImpl buyBookServiceImpl;
+    @Test
+    public void testCreateViewDelete() {
+        RestTemplate restTemplate = new RestTemplate();
+        Book book = new Book(20,20);
+        Client client=new Client("mikesc","123","Schneider","Rue de jolimont","mike17sc@hotmail.com");
+        ResponseEntity<Book> responseEntity = restTemplate.postForEntity("http://localhost:8080/api/book", book, Book.class);
+        ResponseEntity<Client> responseEntity1 = restTemplate.postForEntity("http://localhost:8080/api/client", client, Client.class);
+        BuyBook buyBook=new BuyBook(responseEntity1.getBody(),responseEntity.getBody(),20,"Home");
+        ResponseEntity<BuyBook> responseEntity2 = restTemplate.postForEntity("http://localhost:8080/api/buybook", buyBook, BuyBook.class);
+        Assertions.assertThat(responseEntity2.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        System.out.println("book added...");
+        ResponseEntity<String> responseEntity3= restTemplate.getForEntity("http://localhost:8080/api/buybook",String.class);
 
-    @GetMapping("/buyBook")
-    public Collection<BuyBook> getBuyBooks(){
-        return buyBookServiceImpl.list();
-    }
-    @GetMapping("/buyBook/{id}")
-    public ResponseEntity getBuyBook(@PathVariable("id")Long id){
-        BuyBook buyBook= buyBookServiceImpl.get(id);
-        if (buyBook==null){
-            return new ResponseEntity("No buyBook found for ID" + id, HttpStatus.NOT_FOUND);
-        }
-        else {
-            return new ResponseEntity(buyBook,HttpStatus.OK);
-        }
-    }
-    @PostMapping(value = "/buybook")
-    public ResponseEntity createCustomer(@RequestBody BuyBook buyBook) {
-
-        buyBookServiceImpl.create(buyBook);
-
-        return new ResponseEntity(buyBook, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/buybook/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
-
-        if (!buyBookServiceImpl.delete(id)) {
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity(id, HttpStatus.OK);
-
-    }
-
-    @PutMapping("/buybook/update/{id}")
-    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody BuyBook buyBook) {
-
-        buyBook = buyBookServiceImpl.update(buyBook);
-
-        if (null == buyBook) {
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity(buyBook, HttpStatus.OK);
     }
 }

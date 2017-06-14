@@ -13,8 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Mschneider on 04-06-17.
@@ -30,7 +32,7 @@ public class UserController {
     @Autowired
     public LoginLogServiceImpl loginLogService;
 
-    @GetMapping("/user")
+    @GetMapping("/api/user")
     public Collection<User> getUsers() {
         return userServiceImpl.list();
     }
@@ -45,8 +47,8 @@ public class UserController {
         }
     }
 
-    @PostMapping("api/user/login")
-    public ResponseEntity loginUser(@RequestBody String username, String password) {
+    @GetMapping("api/user/login/{username}/{password}")
+    public ResponseEntity loginUser(@PathVariable ("username")String username,@PathVariable("password") String password) {
         User user = userServiceImpl.get(username, password);
 
         if (user == null) {
@@ -56,23 +58,37 @@ public class UserController {
             loginLogService.create(log);
             Admin admin = adminService.get(user.getId());
             if (admin != null) {
-                return new ResponseEntity(admin, HttpStatus.OK);
+                List<Object> responseBody=new ArrayList<>();
+                responseBody.add(admin);
+                responseBody.add(log);
+                return new ResponseEntity(responseBody,HttpStatus.OK);
             } else {
 
                 Client client = clientService.get(user.getId());
-                return new ResponseEntity(client, HttpStatus.OK);
+                return new ResponseEntity(client,HttpStatus.OK);
             }
 
         }
 
     }
-
+    @GetMapping("api/user/logout/{logId}")
+    public ResponseEntity logoutUser(@PathVariable ("logId")Long logId) {
+        LoginLog log = loginLogService.get(logId);
+        log.setLogout(new Date());
+        loginLogService.update(log);
+        return new ResponseEntity(log,HttpStatus.OK);
+    }
     @PostMapping(value = "api/user")
     public ResponseEntity createUser(@RequestBody User user) {
+        User userCheck=userServiceImpl.get(user.getUsername());
+        if(userCheck!=null){
+            return new ResponseEntity(user, HttpStatus.CONFLICT);
+        }
+        else{
+            userServiceImpl.create(user);
+            return new ResponseEntity(user, HttpStatus.CREATED);
+        }
 
-        userServiceImpl.create(user);
-
-        return new ResponseEntity(user, HttpStatus.OK);
     }
 
     @DeleteMapping("api/user/delete/{id}")
