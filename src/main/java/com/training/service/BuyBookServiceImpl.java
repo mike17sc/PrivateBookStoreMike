@@ -33,9 +33,6 @@ public class BuyBookServiceImpl implements BuyBookService {
     @Override
     public BuyBook create(BuyBook buyBook){
         int newQuantity=buyBook.getBook().getQuantity()-buyBook.getQuantity();
-        if (buyBook.getId() != null) {
-            return null;
-        }
         if (newQuantity<0){
             return null;
         }

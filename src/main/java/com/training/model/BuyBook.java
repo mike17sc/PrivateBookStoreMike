@@ -6,7 +6,6 @@ import javax.persistence.*;
  * Created by Mschneider on 03-06-17.
  */
 @Entity
-@NamedQuery(name="BuyBook.totalBookSold",query="SELECT SUM(b.quantity)FROM BuyBook b")
 public class BuyBook {
     @Id
     @GeneratedValue

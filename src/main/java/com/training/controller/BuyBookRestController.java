@@ -38,24 +38,28 @@ public class BuyBookRestController {
 
     @GetMapping("api/buyBook/totalBookSold")
 
-    public int totalBookSold()
-
+    public ResponseEntity totalBookSold()
     {
-        return buyBookServiceImpl.totalBookSold();
+        int bookSold=buyBookServiceImpl.totalBookSold();
+        return new ResponseEntity(bookSold,HttpStatus.OK);
     }
 
     @PostMapping(value = "api/buybook")
     public ResponseEntity createBuybook(@RequestBody BuyBook buyBook) {
-
-        BuyBook newBuybook = buyBookServiceImpl.create(buyBook);
-        if (newBuybook == null) {
-            return new ResponseEntity("Sell not registered", HttpStatus.BAD_REQUEST);
-        } else {
-
+        if(buyBook == null){
+            return new ResponseEntity(buyBook, HttpStatus.CONFLICT);
+        }
+        else if(buyBook.getClient()==null){
+            return new ResponseEntity(buyBook, HttpStatus.CONFLICT);
+        }
+        else if(buyBook.getBook()==null){
+            return new ResponseEntity(buyBook, HttpStatus.CONFLICT);
+        }
+        else{
+            buyBookServiceImpl.create(buyBook);
+            return new ResponseEntity(buyBook, HttpStatus.CREATED);
         }
 
-
-        return new ResponseEntity(buyBook, HttpStatus.OK);
     }
 
     @DeleteMapping("api/buybook/delete/{id}")
