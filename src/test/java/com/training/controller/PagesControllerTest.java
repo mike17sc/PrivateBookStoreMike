@@ -1,64 +1,32 @@
 package com.training.controller;
 
+import com.training.model.Book;
+import com.training.model.Pages;
 import com.training.model.Pages;
 import com.training.service.PagesServiceImpl;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
 
 /**
  * Created by Mschneider on 04-06-17.
  */
-@RestController
 public class PagesControllerTest {
-    @Autowired
-    private PagesServiceImpl pagesServiceImpl;
-
-    @GetMapping("/pages")
-    public Collection<Pages> getPagess(){
-        return pagesServiceImpl.list();
-    }
-    @GetMapping("/pages/{id}")
-    public ResponseEntity getPages(@PathVariable("id")Long id){
-        Pages pages= pagesServiceImpl.get(id);
-        if (pages==null){
-            return new ResponseEntity("No pages found for ID" + id, HttpStatus.NOT_FOUND);
-        }
-        else {
-            return new ResponseEntity(pages,HttpStatus.OK);
-        }
-    }
-    @PostMapping(value = "/pages")
-    public ResponseEntity createCustomer(@RequestBody Pages pages) {
-
-        pagesServiceImpl.create(pages);
-
-        return new ResponseEntity(pages, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/pages/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
-
-        if (!pagesServiceImpl.delete(id)) {
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity(id, HttpStatus.OK);
-
-    }
-
-    @PutMapping("/pages/update/{id}")
-    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Pages pages) {
-
-        pages = pagesServiceImpl.update(pages);
-
-        if (null == pages) {
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity(pages, HttpStatus.OK);
+    @Test
+    public void testCreateViewDelete() {
+        RestTemplate restTemplate = new RestTemplate();
+        Book book=new Book(20,20);
+        ResponseEntity<Book>responseEntity=restTemplate.postForEntity("http://localhost:8080/api/book",book,Book.class);
+        Pages pages = new Pages(1,"The hero",responseEntity.getBody());
+        ResponseEntity<Pages> responseEntity1 = restTemplate.postForEntity("http://localhost:8080/api/pages", pages, Pages.class);
+        System.out.println(responseEntity.getBody().getId()+responseEntity.getBody().getQuantity()+responseEntity.getBody().getPrice());
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        System.out.println("pages added...");
     }
 }

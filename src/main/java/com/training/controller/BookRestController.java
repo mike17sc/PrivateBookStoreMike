@@ -39,7 +39,7 @@ public class BookRestController {
         return new ResponseEntity(book, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("api/book/delete/{id}")
+    @DeleteMapping("api/book/{id}")
     public ResponseEntity deleteCustomer(@PathVariable Long id) {
 
         if (!bookServiceImpl.delete(id)) {
@@ -50,12 +50,12 @@ public class BookRestController {
 
     }
 
-    @PutMapping("api/book/update/{id}")
+    @PutMapping("api/book/{id}")
     public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Book book) {
 
         book = bookServiceImpl.update(book);
 
-        if (null == book) {
+        if (book==null) {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
         }
 

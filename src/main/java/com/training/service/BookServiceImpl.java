@@ -30,7 +30,8 @@ public class BookServiceImpl implements BookService {
     public Book create(Book book) {
         if (book.getId() != null) {
             return null;
-        } else {
+        }
+        else {
             return bookRepository.save(book);
         }
     }

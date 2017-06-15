@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Mschneider on 04-06-17.
@@ -31,12 +32,11 @@ public class BuyBookServiceImpl implements BuyBookService {
     }
 
     @Override
-    public BuyBook create(BuyBook buyBook){
-        int newQuantity=buyBook.getBook().getQuantity()-buyBook.getQuantity();
-        if (newQuantity<0){
+    public BuyBook create(BuyBook buyBook) {
+        int newQuantity = buyBook.getBook().getQuantity() - buyBook.getQuantity();
+        if (newQuantity < 0) {
             return null;
-        }
-        else {
+        } else {
 
             buyBook.getBook().setQuantity(newQuantity);
             bookServiceImpl.update(buyBook.getBook());
@@ -58,8 +58,15 @@ public class BuyBookServiceImpl implements BuyBookService {
         buyBookRepository.delete(id);
         return true;
     }
+
     @Override
-    public int totalBookSold(){
+    public int totalBookSold() {
         return buyBookRepository.totalBookSold();
+    }
+
+    @Override
+    public Book bestSeller() {
+
+        return buyBookRepository.bestSeller().get(0);
     }
 }

@@ -43,12 +43,17 @@ public class AdminRestController {
             return new ResponseEntity(admin, HttpStatus.CONFLICT);
         }
         else{
-            adminServiceImpl.create(admin);
-            return new ResponseEntity(admin, HttpStatus.CREATED);
+            if(adminServiceImpl.create(admin)==null){
+                return new ResponseEntity(admin, HttpStatus.CONFLICT);
+            }
+            else{
+                return new ResponseEntity(admin, HttpStatus.CREATED);
+            }
+
         }
     }
 
-    @DeleteMapping("api/admin/delete/{id}")
+    @DeleteMapping("api/admin/{id}")
     public ResponseEntity deleteAdmin(@PathVariable Long id) {
 
         if (!adminServiceImpl.delete(id)) {
@@ -59,12 +64,12 @@ public class AdminRestController {
 
     }
 
-    @PutMapping("api/admin/update/{id}")
+    @PutMapping("api/admin/{id}")
     public ResponseEntity updateAdmin(@PathVariable Long id, @RequestBody Admin admin) {
 
         admin = adminServiceImpl.update(admin);
 
-        if (null == admin) {
+        if (admin==null) {
             return new ResponseEntity("No Admin found for ID " + id, HttpStatus.NOT_FOUND);
         }
 

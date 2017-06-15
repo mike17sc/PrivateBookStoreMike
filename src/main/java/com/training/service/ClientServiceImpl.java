@@ -30,7 +30,11 @@ public class ClientServiceImpl implements ClientService {
     public Client create(Client client) {
         if (client.getId() != null) {
             return null;
-        } else {
+        }
+        if(client.getName().isEmpty()||client.getPassword().isEmpty()||client.getUsername().isEmpty()){
+            return null;
+        }
+        else {
             return clientRepository.save(client);
         }
     }

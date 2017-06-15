@@ -80,18 +80,22 @@ public class UserController {
     }
     @PostMapping(value = "api/user")
     public ResponseEntity createUser(@RequestBody User user) {
-        User userCheck=userServiceImpl.get(user.getUsername());
-        if(userCheck!=null){
+        if (user == null) {
+            return new ResponseEntity(user, HttpStatus.UNPROCESSABLE_ENTITY);
+        } else if (userServiceImpl.get(user.getUsername()) != null) {
             return new ResponseEntity(user, HttpStatus.CONFLICT);
-        }
-        else{
-            userServiceImpl.create(user);
-            return new ResponseEntity(user, HttpStatus.CREATED);
+        } else {
+            if(userServiceImpl.create(user)==null){
+                return new ResponseEntity(user, HttpStatus.CONFLICT);
+            }
+            else{
+                return new ResponseEntity(user, HttpStatus.CREATED);
+            }
         }
 
     }
 
-    @DeleteMapping("api/user/delete/{id}")
+    @DeleteMapping("api/user/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
 
         if (!userServiceImpl.delete(id)) {
@@ -102,7 +106,7 @@ public class UserController {
 
     }
 
-    @PutMapping("api/user/update/{id}")
+    @PutMapping("api/user/{id}")
     public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody User user) {
 
         user = userServiceImpl.update(user);

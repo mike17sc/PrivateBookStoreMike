@@ -43,8 +43,15 @@ public class BuyBookRestController {
         int bookSold=buyBookServiceImpl.totalBookSold();
         return new ResponseEntity(bookSold,HttpStatus.OK);
     }
+    @GetMapping("api/buyBook/bestSeller")
 
-    @PostMapping(value = "api/buybook")
+    public ResponseEntity topFive()
+    {
+        Book bestSeller=buyBookServiceImpl.bestSeller();
+        return new ResponseEntity(bestSeller,HttpStatus.OK);
+    }
+
+    @PostMapping(value = "api/buyBook")
     public ResponseEntity createBuybook(@RequestBody BuyBook buyBook) {
         if(buyBook == null){
             return new ResponseEntity(buyBook, HttpStatus.CONFLICT);
@@ -62,7 +69,7 @@ public class BuyBookRestController {
 
     }
 
-    @DeleteMapping("api/buybook/delete/{id}")
+    @DeleteMapping("api/buyBook/{id}")
     public ResponseEntity deleteBuybook(@PathVariable Long id) {
 
         if (!buyBookServiceImpl.delete(id)) {
@@ -73,7 +80,7 @@ public class BuyBookRestController {
 
     }
 
-    @PutMapping("api/buybook/update/{id}")
+    @PutMapping("api/buyBook/{id}")
     public ResponseEntity updateBuybook(@PathVariable Long id, @RequestBody BuyBook buyBook) {
 
         buyBook = buyBookServiceImpl.update(buyBook);

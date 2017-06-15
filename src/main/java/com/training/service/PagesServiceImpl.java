@@ -31,7 +31,8 @@ public class PagesServiceImpl implements PagesService {
     public Pages create(Pages pages) {
         if (pages.getId() != null) {
             return null;
-        } else {
+        }
+        else {
             return pagesRepository.save(pages);
         }
     }

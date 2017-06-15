@@ -41,7 +41,11 @@ public class UserServiceImpl implements UserService {
     public User create(User user) {
         if (user.getId() != null) {
             return null;
-        } else {
+        }
+        else if(user.getUsername().isEmpty()||user.getPassword().isEmpty()){
+            return null;
+        }
+        else {
             return userRepository.save(user);
         }
     }

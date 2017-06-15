@@ -42,8 +42,12 @@ public class ClientController {
         } else if (userServiceImpl.get(client.getUsername()) != null) {
             return new ResponseEntity(client, HttpStatus.CONFLICT);
         } else {
-            clientServiceImpl.create(client);
-            return new ResponseEntity(client, HttpStatus.OK);
+            if(clientServiceImpl.create(client)==null){
+                return new ResponseEntity(client, HttpStatus.CONFLICT);
+            }
+            else{
+                return new ResponseEntity(client, HttpStatus.CREATED);
+            }
         }
 
     }
