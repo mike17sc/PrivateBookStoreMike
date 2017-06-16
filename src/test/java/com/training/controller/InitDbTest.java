@@ -1,6 +1,7 @@
 package com.training.controller;
 
 import com.training.model.Book;
+import com.training.model.Client;
 import com.training.model.Pages;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,8 @@ public class InitDbTest {
         restTemplate.postForEntity("http://localhost:8080/api/pages", pages, Pages.class);
         Pages pages3 = new Pages(37,"Heroes",responseEntity.getBody());
         restTemplate.postForEntity("http://localhost:8080/api/pages", pages, Pages.class);
+        Client client = new Client("mikesc","123","Schneider","jolimont","mike17sc@hotmail.com");
+        restTemplate.postForEntity("http://localhost:8080/api/client", client, Client.class);
 
     }
 }

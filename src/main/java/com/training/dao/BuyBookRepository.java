@@ -18,4 +18,6 @@ public interface BuyBookRepository extends JpaRepository<BuyBook, Long> {
     public int totalBookSold();
     @Query(" SELECT b.book FROM BuyBook b GROUP BY b.book ORDER BY SUM(b.quantity) DESC")
     public List<Book> bestSeller();
+    @Query(" SELECT b.client FROM BuyBook b GROUP BY b.client ORDER BY SUM(b.quantity) DESC")
+    public List<Book> bestBuyer();
 }

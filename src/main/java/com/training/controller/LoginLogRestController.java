@@ -43,7 +43,7 @@ public class LoginLogRestController {
 
     }
 
-    @DeleteMapping("api/loginLog/delete/{id}")
+    @DeleteMapping("api/loginLog/{id}")
     public ResponseEntity deleteLoginLog(@PathVariable Long id) {
 
         if (!loginLogServiceImpl.delete(id)) {
@@ -54,7 +54,7 @@ public class LoginLogRestController {
 
     }
 
-    @PutMapping("api/loginLog/update/{id}")
+    @PutMapping("api/loginLog/{id}")
     public ResponseEntity updateLoginLog(@PathVariable Long id, @RequestBody LoginLog loginLog) {
 
         loginLog = loginLogServiceImpl.update(loginLog);

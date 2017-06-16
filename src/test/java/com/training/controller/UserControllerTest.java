@@ -1,5 +1,6 @@
 package com.training.controller;
 
+import com.training.model.LoginLog;
 import com.training.model.User;
 import com.training.model.User;
 import com.training.service.UserService;
@@ -69,7 +70,7 @@ public class UserControllerTest {
         String fooResourceUrl = "http://localhost:8080/api/user/login/Mikeschn/123";
         User user = new User("Mikeschn", "123", "Schneider");
         ResponseEntity<User> responseEntity = restTemplate.postForEntity("http://localhost:8080/api/user", user, User.class);
-        ResponseEntity<List> responseEntity1 = restTemplate.getForEntity(fooResourceUrl,List.class);
+        ResponseEntity<LoginLog> responseEntity1 = restTemplate.getForEntity(fooResourceUrl,LoginLog.class);
         Assertions.assertThat(responseEntity1.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
     @Test

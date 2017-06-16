@@ -54,18 +54,15 @@ public class UserController {
         if (user == null) {
             return new ResponseEntity("Wrong username or password", HttpStatus.UNAUTHORIZED);
         } else {
-            LoginLog log = new LoginLog(user, new Date(), null);
+            LoginLog log = new LoginLog(user, new Date());
             loginLogService.create(log);
             Admin admin = adminService.get(user.getId());
             if (admin != null) {
-                List<Object> responseBody=new ArrayList<>();
-                responseBody.add(admin);
-                responseBody.add(log);
-                return new ResponseEntity(responseBody,HttpStatus.OK);
+                return new ResponseEntity(log,HttpStatus.OK);
             } else {
 
                 Client client = clientService.get(user.getId());
-                return new ResponseEntity(client,HttpStatus.OK);
+                return new ResponseEntity(log,HttpStatus.OK);
             }
 
         }
@@ -75,6 +72,7 @@ public class UserController {
     public ResponseEntity logoutUser(@PathVariable ("logId")Long logId) {
         LoginLog log = loginLogService.get(logId);
         log.setLogout(new Date());
+        log.setDuration(log.getLogon().getTime()-log.getLogout().getTime());
         loginLogService.update(log);
         return new ResponseEntity(log,HttpStatus.OK);
     }

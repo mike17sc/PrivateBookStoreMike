@@ -19,14 +19,14 @@ public class LoginLog {
     private User user;
     private Date logon;
     private Date logout;
+    private long duration;
 
     public LoginLog() {
     }
 
-    public LoginLog(User user, Date logon, Date logout) {
+    public LoginLog(User user, Date logon) {
         this.user = user;
         this.logon = logon;
-        this.logout = logout;
     }
 
     public Long getId() {
@@ -59,5 +59,13 @@ public class LoginLog {
 
     public void setLogout(Date logout) {
         this.logout = logout;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 }
