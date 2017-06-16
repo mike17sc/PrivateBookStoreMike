@@ -36,10 +36,10 @@ public class ContentController {
 
         contentServiceImpl.create(content);
 
-        return new ResponseEntity(content, HttpStatus.OK);
+        return new ResponseEntity(content, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("api/content/delete/{id}")
+    @DeleteMapping("api/content/{id}")
     public ResponseEntity deleteContent(@PathVariable Long id) {
 
         if (!contentServiceImpl.delete(id)) {
@@ -50,7 +50,7 @@ public class ContentController {
 
     }
 
-    @PutMapping("api/content/update/{id}")
+    @PutMapping("api/content/{id}")
     public ResponseEntity updateContent(@PathVariable Long id, @RequestBody Content content) {
 
         content = contentServiceImpl.update(content);

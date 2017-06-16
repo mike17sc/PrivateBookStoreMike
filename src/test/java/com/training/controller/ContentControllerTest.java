@@ -1,64 +1,50 @@
 package com.training.controller;
 
+import com.training.model.Book;
 import com.training.model.Content;
+import com.training.model.Pages;
 import com.training.service.ContentServiceImpl;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by Mschneider on 04-06-17.
  */
-@RestController
 public class ContentControllerTest {
-    @Autowired
-    private ContentServiceImpl contentServiceImpl;
+    @Test
+    public void testCreateViewDeleteUpdate() {
+        //added
+        RestTemplate restTemplate = new RestTemplate();
+        Book book=new Book(50,50);
+        ResponseEntity<Book> responseEntity1=restTemplate.postForEntity("http://localhost:8080/api/book",book,Book.class);
+        Pages pages=new Pages(50,"Heroes",responseEntity1.getBody());
+        ResponseEntity<Pages> responseEntity2=restTemplate.postForEntity("http://localhost:8080/api/pages",pages,Pages.class);
+        String fooResourceUrl = "http://localhost:8080/api/content";
+        Content content = new Content("This is content",new Date(),responseEntity2.getBody());
+        ResponseEntity<Content> responseEntity = restTemplate.postForEntity(fooResourceUrl, content, Content.class);
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        System.out.println("content added...");
 
-    @GetMapping("/content")
-    public Collection<Content> getContents(){
-        return contentServiceImpl.list();
-    }
-    @GetMapping("/content/{id}")
-    public ResponseEntity getContent(@PathVariable("id")Long id){
-        Content content= contentServiceImpl.get(id);
-        if (content==null){
-            return new ResponseEntity("No content found for ID" + id, HttpStatus.NOT_FOUND);
-        }
-        else {
-            return new ResponseEntity(content,HttpStatus.OK);
-        }
-    }
-    @PostMapping(value = "/content")
-    public ResponseEntity createCustomer(@RequestBody Content content) {
+        //listed
+        ResponseEntity<String> response1 = restTemplate.getForEntity(fooResourceUrl, String.class);
+        System.out.println(response1.getBody());
+        Assertions.assertThat(response1.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        contentServiceImpl.create(content);
+        //updated
+        responseEntity.getBody().setText("moidhjsfomqdhfsqfdsh");
+        restTemplate.put(fooResourceUrl + "/" + responseEntity.getBody().getId(), responseEntity.getBody(), Content.class);
+        System.out.println("Content updated");
 
-        return new ResponseEntity(content, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/content/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
-
-        if (!contentServiceImpl.delete(id)) {
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity(id, HttpStatus.OK);
-
-    }
-
-    @PutMapping("/content/update/{id}")
-    public ResponseEntity updateCustomer(@PathVariable Long id, @RequestBody Content content) {
-
-        content = contentServiceImpl.update(content);
-
-        if (null == content) {
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity(content, HttpStatus.OK);
+        //deleted
+        restTemplate.delete(fooResourceUrl + "/" + responseEntity.getBody().getId());
+        System.out.println("User deleted");
     }
 }

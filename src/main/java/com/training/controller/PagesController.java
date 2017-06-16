@@ -36,10 +36,10 @@ public class PagesController {
 
         pagesServiceImpl.create(pages);
 
-        return new ResponseEntity(pages, HttpStatus.OK);
+        return new ResponseEntity(pages, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("api/pages/delete/{id}")
+    @DeleteMapping("api/pages/{id}")
     public ResponseEntity deletePages(@PathVariable Long id) {
 
         if (!pagesServiceImpl.delete(id)) {
@@ -50,7 +50,7 @@ public class PagesController {
 
     }
 
-    @PutMapping("api/pages/update/{id}")
+    @PutMapping("api/pages/{id}")
     public ResponseEntity updatePages(@PathVariable Long id, @RequestBody Pages pages) {
 
         pages = pagesServiceImpl.update(pages);
