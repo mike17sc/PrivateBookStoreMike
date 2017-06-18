@@ -2,6 +2,7 @@ package com.training.dao;
 
 import com.training.model.Book;
 import com.training.model.BuyBook;
+import com.training.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,5 +20,5 @@ public interface BuyBookRepository extends JpaRepository<BuyBook, Long> {
     @Query(" SELECT b.book FROM BuyBook b GROUP BY b.book ORDER BY SUM(b.quantity) DESC")
     public List<Book> bestSeller();
     @Query(" SELECT b.client FROM BuyBook b GROUP BY b.client ORDER BY SUM(b.quantity) DESC")
-    public List<Book> bestBuyer();
+    public List<Client> listBuyer();
 }

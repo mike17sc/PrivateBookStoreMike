@@ -54,9 +54,9 @@ public class BuyBookRestControllerTest {
         RestTemplate restTemplate = new RestTemplate();
         Book book = new Book(20, 20);
         Client client = new Client("mikesc", "123", "Schneider", "Rue de jolimont", "mike17sc@hotmail.com");
-        ResponseEntity<Book> responseEntity = restTemplate.postForEntity("http://localhost:8080/api/book", book, Book.class);
-        ResponseEntity<Client> responseEntity1 = restTemplate.postForEntity("http://localhost:8080/api/client", client, Client.class);
-        BuyBook buyBook = new BuyBook(responseEntity1.getBody(), responseEntity.getBody(), 2, "Home");
+        ResponseEntity<Book> bookResponseEntity = restTemplate.postForEntity("http://localhost:8080/api/book", book, Book.class);
+        ResponseEntity<Client> clientResponseEntity = restTemplate.postForEntity("http://localhost:8080/api/client", client, Client.class);
+        BuyBook buyBook = new BuyBook(clientResponseEntity.getBody(), bookResponseEntity.getBody(), 2, "Home");
         restTemplate.postForEntity("http://localhost:8080/api/buyBook", buyBook, BuyBook.class);
         restTemplate.postForEntity("http://localhost:8080/api/buyBook", buyBook, BuyBook.class);
         System.out.println("buybook added...");
@@ -72,15 +72,38 @@ public class BuyBookRestControllerTest {
     public void bestSeller() {
         RestTemplate restTemplate = new RestTemplate();
         Book book = new Book(30, 30);
+        Book book2 = new Book(40, 50);
         Client client = new Client("mikesch", "123", "Schneider", "Rue de jolimont", "mike17sc@hotmail.com");
-        ResponseEntity<Book> responseEntity = restTemplate.postForEntity("http://localhost:8080/api/book", book, Book.class);
-        ResponseEntity<Client> responseEntity1 = restTemplate.postForEntity("http://localhost:8080/api/client", client, Client.class);
-        BuyBook buyBook = new BuyBook(responseEntity1.getBody(), responseEntity.getBody(), 5, "Home");
+        ResponseEntity<Book> booResponseEntity = restTemplate.postForEntity("http://localhost:8080/api/book", book, Book.class);
+        ResponseEntity<Book> book2ResponseEntity = restTemplate.postForEntity("http://localhost:8080/api/book", book2, Book.class);
+        ResponseEntity<Client> clientResponseEntity = restTemplate.postForEntity("http://localhost:8080/api/client", client, Client.class);
+        BuyBook buyBook = new BuyBook(clientResponseEntity.getBody(), booResponseEntity.getBody(), 6, "Home");
+        BuyBook buyBook2 = new BuyBook(clientResponseEntity.getBody(), book2ResponseEntity.getBody(), 10, "Home");
         restTemplate.postForEntity("http://localhost:8080/api/buyBook", buyBook, BuyBook.class);
+        restTemplate.postForEntity("http://localhost:8080/api/buyBook", buyBook2, BuyBook.class);
         restTemplate.postForEntity("http://localhost:8080/api/buyBook", buyBook, BuyBook.class);
         System.out.println("buybook added...");
-
-
+        ResponseEntity<Book> bestSellerResponseEntity=restTemplate.getForEntity("http://localhost:8080/api/buyBook/bestSeller",Book.class);
+        Assertions.assertThat(bestSellerResponseEntity.getBody().getId()).isEqualTo(booResponseEntity.getBody().getId());
     }
+    @Test
+    public void bestClient() {
+        RestTemplate restTemplate = new RestTemplate();
+        Book book = new Book(30, 30);
+        Client client = new Client("mikesch", "123", "Schneider", "Rue de jolimont", "mike17sc@hotmail.com");
+        Client client2 = new Client("cath", "456", "Berki", "Rue jolimont", "cath@hotmail.com");
+        ResponseEntity<Book> booResponseEntity = restTemplate.postForEntity("http://localhost:8080/api/book", book, Book.class);
+        ResponseEntity<Client> clientResponseEntity = restTemplate.postForEntity("http://localhost:8080/api/client", client, Client.class);
+        ResponseEntity<Client> client2ResponseEntity = restTemplate.postForEntity("http://localhost:8080/api/client", client2, Client.class);
+        BuyBook buyBook = new BuyBook(clientResponseEntity.getBody(), booResponseEntity.getBody(), 6, "Home");
+        BuyBook buyBook2 = new BuyBook(client2ResponseEntity.getBody(), booResponseEntity.getBody(), 10, "Home");
+        restTemplate.postForEntity("http://localhost:8080/api/buyBook", buyBook, BuyBook.class);
+        restTemplate.postForEntity("http://localhost:8080/api/buyBook", buyBook2, BuyBook.class);
+        restTemplate.postForEntity("http://localhost:8080/api/buyBook", buyBook, BuyBook.class);
+        System.out.println("buybook added...");
+        ResponseEntity<Client> bestBuyerResponseEntity=restTemplate.getForEntity("http://localhost:8080/api/buyBook/bestBuyer",Client.class);
+        Assertions.assertThat(bestBuyerResponseEntity.getBody().getId()).isEqualTo(clientResponseEntity.getBody().getId());
+    }
+
 
 }

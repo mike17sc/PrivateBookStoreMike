@@ -72,7 +72,7 @@ public class UserController {
     public ResponseEntity logoutUser(@PathVariable ("logId")Long logId) {
         LoginLog log = loginLogService.get(logId);
         log.setLogout(new Date());
-        log.setDuration(log.getLogon().getTime()-log.getLogout().getTime());
+        log.setDuration(Math.abs(log.getLogon().getTime()-log.getLogout().getTime()));
         loginLogService.update(log);
         return new ResponseEntity(log,HttpStatus.OK);
     }

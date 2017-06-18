@@ -2,6 +2,7 @@ package com.training.controller;
 
 import com.training.model.Book;
 import com.training.model.BuyBook;
+import com.training.model.Client;
 import com.training.service.BookServiceImpl;
 import com.training.service.BuyBookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,17 @@ public class BuyBookRestController {
     }
     @GetMapping("api/buyBook/bestSeller")
 
-    public ResponseEntity topFive()
+    public ResponseEntity bestSeller()
     {
         Book bestSeller=buyBookServiceImpl.bestSeller();
         return new ResponseEntity(bestSeller,HttpStatus.OK);
+    }
+    @GetMapping("api/buyBook/bestBuyer")
+
+    public ResponseEntity bestBuyer()
+    {
+        Client bestBuyer=buyBookServiceImpl.bestBuyer();
+        return new ResponseEntity(bestBuyer,HttpStatus.OK);
     }
 
     @PostMapping(value = "api/buyBook")

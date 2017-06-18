@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Mschneider on 04-06-17.
@@ -44,5 +45,9 @@ public class LoginLogServiceImpl implements LoginLogService {
     public boolean delete(Long id) {
         loginLogRepository.delete(id);
         return true;
+    }
+    @Override
+    public List<Object[]> auditLog(){
+        return loginLogRepository.auditLog();
     }
 }

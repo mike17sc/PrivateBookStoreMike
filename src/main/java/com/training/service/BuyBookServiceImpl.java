@@ -4,6 +4,7 @@ import com.training.dao.BookRepository;
 import com.training.dao.BuyBookRepository;
 import com.training.model.Book;
 import com.training.model.BuyBook;
+import com.training.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -68,5 +69,10 @@ public class BuyBookServiceImpl implements BuyBookService {
     public Book bestSeller() {
 
         return buyBookRepository.bestSeller().get(0);
+    }
+    @Override
+    public Client bestBuyer() {
+
+        return buyBookRepository.listBuyer().get(0);
     }
 }

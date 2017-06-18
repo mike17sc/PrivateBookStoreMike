@@ -3,6 +3,7 @@ package com.training.service;
 import com.training.model.LoginLog;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Mschneider on 04-06-17.
@@ -17,4 +18,5 @@ public interface LoginLogService {
     LoginLog update(LoginLog loginLog);
 
     boolean delete(Long id);
+    List<Object[]> auditLog();
 }

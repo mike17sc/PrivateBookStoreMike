@@ -1,6 +1,7 @@
 package com.training.controller;
 
 import com.training.model.Book;
+import com.training.model.BuyBook;
 import com.training.model.Client;
 import com.training.model.Pages;
 import org.junit.Test;
@@ -28,7 +29,10 @@ public class InitDbTest {
         Pages pages3 = new Pages(37,"Heroes",responseEntity.getBody());
         restTemplate.postForEntity("http://localhost:8080/api/pages", pages, Pages.class);
         Client client = new Client("mikesc","123","Schneider","jolimont","mike17sc@hotmail.com");
-        restTemplate.postForEntity("http://localhost:8080/api/client", client, Client.class);
+        ResponseEntity<Client> responseEntity1=restTemplate.postForEntity("http://localhost:8080/api/client", client, Client.class);
+        BuyBook buyBook = new BuyBook(responseEntity1.getBody(), responseEntity.getBody(), 5, "Home");
+        restTemplate.postForEntity("http://localhost:8080/api/buyBook", buyBook, BuyBook.class);
+        restTemplate.postForEntity("http://localhost:8080/api/buyBook", buyBook, BuyBook.class);
 
     }
 }
