@@ -35,6 +35,7 @@ public class AdminServiceImpl implements AdminService {
             return null;
         }
         else {
+            admin.setUserType("Admin");
             return adminRepository.save(admin);
         }
     }

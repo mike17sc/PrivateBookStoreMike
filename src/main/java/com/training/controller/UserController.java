@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping("api/user/login/{username}/{password}")
-    public ResponseEntity loginUser(@PathVariable ("username")String username,@PathVariable("password") String password) {
+    public ResponseEntity loginUser(@PathVariable("username") String username, @PathVariable("password") String password) {
         User user = userServiceImpl.get(username, password);
 
         if (user == null) {
@@ -56,26 +56,20 @@ public class UserController {
         } else {
             LoginLog log = new LoginLog(user, new Date());
             loginLogService.create(log);
-            Admin admin = adminService.get(user.getId());
-            if (admin != null) {
-                return new ResponseEntity(log,HttpStatus.OK);
-            } else {
-
-                Client client = clientService.get(user.getId());
-                return new ResponseEntity(log,HttpStatus.OK);
-            }
-
+            return new ResponseEntity(log, HttpStatus.OK);
         }
 
     }
+
     @GetMapping("api/user/logout/{logId}")
-    public ResponseEntity logoutUser(@PathVariable ("logId")Long logId) {
+    public ResponseEntity logoutUser(@PathVariable("logId") Long logId) {
         LoginLog log = loginLogService.get(logId);
         log.setLogout(new Date());
-        log.setDuration(Math.abs(log.getLogon().getTime()-log.getLogout().getTime()));
+        log.setDuration(Math.abs(log.getLogon().getTime() - log.getLogout().getTime()));
         loginLogService.update(log);
-        return new ResponseEntity(log,HttpStatus.OK);
+        return new ResponseEntity(log, HttpStatus.OK);
     }
+
     @PostMapping(value = "api/user")
     public ResponseEntity createUser(@RequestBody User user) {
         if (user == null) {
@@ -83,10 +77,9 @@ public class UserController {
         } else if (userServiceImpl.get(user.getUsername()) != null) {
             return new ResponseEntity(user, HttpStatus.CONFLICT);
         } else {
-            if(userServiceImpl.create(user)==null){
+            if (userServiceImpl.create(user) == null) {
                 return new ResponseEntity(user, HttpStatus.CONFLICT);
-            }
-            else{
+            } else {
                 return new ResponseEntity(user, HttpStatus.CREATED);
             }
         }

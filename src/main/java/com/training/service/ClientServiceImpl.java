@@ -35,6 +35,7 @@ public class ClientServiceImpl implements ClientService {
             return null;
         }
         else {
+            client.setUserType("Client");
             return clientRepository.save(client);
         }
     }
