@@ -1,10 +1,7 @@
 package com.training.model;
 
 import javax.annotation.Generated;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -15,7 +12,7 @@ public class LoginLog {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne
+    @ManyToOne()
     private User user;
     private Date logon;
     private Date logout;

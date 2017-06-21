@@ -27,6 +27,8 @@ public class InitDbTest {
         restTemplate.postForEntity("http://localhost:8080/api/pages", pages, Pages.class);
         Client client = new Client("mikesc","123","Schneider","jolimont","mike17sc@hotmail.com");
         ResponseEntity<Client> responseEntity1=restTemplate.postForEntity("http://localhost:8080/api/client", client, Client.class);
+        Client client1 = new Client("mikeschne","123","Schneiderfefe","jolimontsdfs","mike17sc@hotmail.com");
+        restTemplate.postForEntity("http://localhost:8080/api/client", client1, Client.class);
         Admin admin = new Admin("mikesch","123","Schneider");
         ResponseEntity<Admin> adminResponseEntity1=restTemplate.postForEntity("http://localhost:8080/api/admin", admin, Admin.class);
         BuyBook buyBook = new BuyBook(responseEntity1.getBody(), responseEntity.getBody(), 5, "Home");

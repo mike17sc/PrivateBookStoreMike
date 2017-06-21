@@ -52,7 +52,7 @@ public class ClientController {
 
     }
 
-    @DeleteMapping("api/client/delete/{id}")
+    @DeleteMapping("api/client/{id}")
     public ResponseEntity deleteClient(@PathVariable Long id) {
 
         if (!clientServiceImpl.delete(id)) {
@@ -63,7 +63,7 @@ public class ClientController {
 
     }
 
-    @PutMapping("api/client/update/{id}")
+    @PutMapping("api/client/{id}")
     public ResponseEntity updateClient(@PathVariable Long id, @RequestBody Client client) {
 
         client = clientServiceImpl.update(client);
