@@ -33,6 +33,7 @@ public class AdminRestControllerTest {
         restTemplate.put(fooResourceUrl + "/" + responseEntity.getBody().getId(), responseEntity.getBody(), Admin.class);
         System.out.println("Admin updated");
 
+
         //deleted
         restTemplate.delete(fooResourceUrl + "/" + responseEntity.getBody().getId());
         System.out.println("User deleted");
