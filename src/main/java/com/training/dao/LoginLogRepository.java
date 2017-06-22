@@ -2,6 +2,7 @@ package com.training.dao;
 
 import com.training.model.Book;
 import com.training.model.LoginLog;
+import com.training.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

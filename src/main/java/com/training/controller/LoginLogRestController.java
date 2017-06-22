@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Mschneider on 04-06-17.
@@ -20,6 +21,10 @@ public class LoginLogRestController {
     @GetMapping("api/loginLog")
     public Collection<LoginLog> getLoginLogs(){
         return loginLogServiceImpl.list();
+    }
+    @GetMapping("api/loginLog/totalDuration")
+    public List<Object[]> getLoginLogsDurations(){
+        return loginLogServiceImpl.auditLog();
     }
     @GetMapping("api/loginLog/{id}")
     public ResponseEntity getLoginLog(@PathVariable("id")Long id){
