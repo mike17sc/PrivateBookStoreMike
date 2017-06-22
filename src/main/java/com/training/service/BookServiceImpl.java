@@ -32,6 +32,12 @@ public class BookServiceImpl implements BookService {
             return null;
         }
         else {
+            if(book.getQuantity()<=0){
+                book.setStatus("OUT OF STOCK");
+            }
+            else{
+                book.setStatus("AVAILABLE");
+            }
             return bookRepository.save(book);
         }
     }
@@ -41,6 +47,17 @@ public class BookServiceImpl implements BookService {
         if (book.getId() == null) {
             return null;
         } else {
+            if (book.getId() != null) {
+                return null;
+            }
+            else {
+                if(book.getQuantity()<=0){
+                    book.setStatus("OUT OF STOCK");
+                }
+                else{
+                    book.setStatus("AVAILABLE");
+                }
+            }
             return bookRepository.save(book);
         }
     }
