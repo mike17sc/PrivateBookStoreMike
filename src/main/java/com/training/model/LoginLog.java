@@ -1,5 +1,8 @@
 package com.training.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.annotation.Generated;
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +15,7 @@ public class LoginLog {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne()
+    @ManyToOne(cascade={CascadeType.ALL})
     private User user;
     private Date logon;
     private Date logout;
