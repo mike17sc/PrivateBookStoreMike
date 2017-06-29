@@ -20,6 +20,8 @@ import java.util.Collection;
  * Created by Mschneider on 04-06-17.
  */
 public class PagesControllerTest {
+    @Autowired
+    private PagesServiceImpl pagesServiceimpl;
     @Test
     public void testCreateViewDeleteUpdate() {
         //added
@@ -60,5 +62,9 @@ public class PagesControllerTest {
             Assertions.assertThat(e.getMessage()).isEqualTo("409 null");
         }
 
+    }
+    @Test
+    public void topFivePages(){
+        pagesServiceimpl.topFivePages();
     }
 }

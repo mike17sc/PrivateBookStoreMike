@@ -3,6 +3,7 @@ package com.training.service;
 import com.training.model.Book;
 import com.training.model.BuyBook;
 import com.training.model.Client;
+import com.training.model.Pages;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,8 +27,5 @@ public interface BuyBookService {
     Book bestSeller();
 
     Client bestBuyer();
-
-
-
 
 }

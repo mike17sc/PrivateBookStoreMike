@@ -17,4 +17,8 @@ public interface PagesService {
     Pages update(Pages pages);
 
     boolean delete(Long id);
+
+    void topFivePages();
+
+
 }

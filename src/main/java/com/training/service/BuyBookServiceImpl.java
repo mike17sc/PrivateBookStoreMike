@@ -5,9 +5,11 @@ import com.training.dao.BuyBookRepository;
 import com.training.model.Book;
 import com.training.model.BuyBook;
 import com.training.model.Client;
+import com.training.model.Pages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 

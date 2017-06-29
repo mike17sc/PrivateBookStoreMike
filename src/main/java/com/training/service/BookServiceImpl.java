@@ -47,7 +47,7 @@ public class BookServiceImpl implements BookService {
         if (book.getId() == null) {
             return null;
         } else {
-            if (book.getId() != null) {
+            if (book.getId() == null) {
                 return null;
             }
             else {

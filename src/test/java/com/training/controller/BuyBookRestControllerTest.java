@@ -4,6 +4,7 @@ import com.training.model.Book;
 import com.training.model.BuyBook;
 import com.training.model.Client;
 import com.training.service.BookServiceImpl;
+import com.training.service.BuyBookServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.Collection;
  */
 
 public class BuyBookRestControllerTest {
+    @Autowired
+    private BuyBookServiceImpl buyBookServiceImpl;
     @Test
     public void testCreateViewDeleteUpdate() {
         //added
@@ -104,6 +107,5 @@ public class BuyBookRestControllerTest {
         ResponseEntity<Client> bestBuyerResponseEntity=restTemplate.getForEntity("http://localhost:8080/api/buyBook/bestBuyer",Client.class);
         Assertions.assertThat(bestBuyerResponseEntity.getBody().getId()).isEqualTo(clientResponseEntity.getBody().getId());
     }
-
 
 }
